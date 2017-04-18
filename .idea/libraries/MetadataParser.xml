@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MetadataParser">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../CWGRU/out/artifacts/MetadataParser/MetadataParser.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
