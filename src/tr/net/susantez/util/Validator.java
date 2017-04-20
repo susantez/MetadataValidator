@@ -12,11 +12,11 @@ public class Validator {
     private static final Logger logger = LogManager.getLogger(Validator.class);
     public static boolean validateInputs(String[] args) {
         if (args == null || args.length != 1) {
-            logger.info(Constants.constNullArgs);
+            logger.warn(Constants.constNullArgs);
             return false;
         }
         if(!checkFile(args[0])) {
-            logger.info(Constants.constCheckMetadataPath);
+            logger.warn(Constants.constCheckMetadataPath);
             return false;
         }
         return true;

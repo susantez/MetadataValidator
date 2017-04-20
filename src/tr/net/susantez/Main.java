@@ -11,12 +11,17 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
-        logger.error("Hello, World!");
-        args = new String[1];
-        args[0] = "C:\\metadata.xml";
-        if (Validator.validateInputs(args)) {
-            ValidateMetadataObjects mdCheck = new ValidateMetadataObjects(args[0]);
-            mdCheck.validateMetadata();
+        try {
+            if (args == null) {
+                args = new String[1];
+                args[0] = "C:\\metadata.xml";
+            }
+            if (Validator.validateInputs(args)) {
+                ValidateMetadataObjects mdCheck = new ValidateMetadataObjects(args[0]);
+                mdCheck.validateMetadata();
+            }
+        } catch (Throwable t) {
+            logger.error(t);
         }
     }
 }
