@@ -24,8 +24,6 @@ public class Validator {
 
     private static boolean checkFile(String path) {
         File file = new File(path);
-        if (!file.isDirectory())
-            file = file.getParentFile();
         if (file.exists()) {
             return true;
         }

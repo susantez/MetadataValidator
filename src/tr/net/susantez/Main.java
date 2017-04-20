@@ -12,9 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            if (args == null) {
+            if (args == null || args.length < 1) {
                 args = new String[1];
-                args[0] = "C:\\metadata.xml";
+                args[0] = "C:\\metadatas.xml";
             }
             if (Validator.validateInputs(args)) {
                 ValidateMetadataObjects mdCheck = new ValidateMetadataObjects(args[0]);

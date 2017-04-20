@@ -6,7 +6,7 @@ package tr.net.susantez.util;
 public class Constants {
 
     public static final String constNullArgs = "Parameters missing! [0]-> metadata file";
-    public static final String constCheckMetadataPath = "metadata is not a file";
+    public static final String constCheckMetadataPath = "missing metadata, check path";
 
     public static final String objDataType = "dataType";
     public static final String objElementType = "elementType";
