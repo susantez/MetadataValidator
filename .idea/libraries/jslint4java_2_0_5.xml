@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jslint4java-2.0.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jcommander-1.30.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jslint4java-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rhino-1.7R4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

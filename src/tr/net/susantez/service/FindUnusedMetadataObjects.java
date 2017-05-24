@@ -6,13 +6,9 @@ import tr.net.susantez.dataMapping.Metadata;
 import tr.net.susantez.dataMapping.metadata.*;
 import tr.net.susantez.dataMapping.metadata.Process;
 import tr.net.susantez.util.Constants;
+import tr.net.susantez.util.Utility;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -20,39 +16,37 @@ import java.util.List;
  * Validator for ConceptWave v4.2 Metadata
  * Lists unused objects
  */
-public class ValidateMetadataObjects {
-    private static final Logger logger = LogManager.getLogger(ValidateMetadataObjects.class);
+public class FindUnusedMetadataObjects {
+    private static final Logger logger = LogManager.getLogger(FindUnusedMetadataObjects.class);
 
-    private XMLStreamReader reader;
+
     private File metadataFile;
     private Metadata metadata;
     private int totalObjectsValidated = 0;
     private int totalUnusedObjects = 0;
+    private int appType;
 
-    public ValidateMetadataObjects(String metadataPath) {
+    public FindUnusedMetadataObjects(String metadataPath, int type) {
         metadataFile = new File(metadataPath);
         metadata = null;
-        reader = null;
+        appType = type;
     }
 
     public void validateMetadata() {
-        long startTime = System.nanoTime();
-        logger.info("parsing metadata");
-        parseMetadata();
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1000000000;
-        logger.info("parsing completed - total duration (s):" + duration);
-        startTime = System.nanoTime();
-        logger.info("|type|namespace|name|guid");
+        metadata = Utility.parseMetadata(metadataFile);
+        logger.info("type|namespace|name|guid");
         if (metadata != null) {
-            findUnusedDataTypes();
-            findUnusedDocuments();
-            findUnusedFinders();
-            findUnusedScripts();
+            if (appType == Constants.typeAll || appType == Constants.typeDocument) {
+                findUnusedDataTypes();
+                findUnusedDocuments();
+            }
+            if (appType == Constants.typeAll || appType == Constants.typeFinder) {
+                findUnusedFinders();
+            }
+            if (appType == Constants.typeAll || appType == Constants.typeScript) {
+                findUnusedScripts();
+            }
         }
-        endTime = System.nanoTime();
-        duration = (endTime - startTime) / 1000000000; //nano second to second
-        logger.info("validatation completed - total duration (s):" + duration);
         logger.info("Objects scanned :" + totalObjectsValidated);
         logger.info("Unused objects :" + totalUnusedObjects);
     }
@@ -372,32 +366,11 @@ public class ValidateMetadataObjects {
         return false;
     }
 
-    private void parseMetadata() {
-        XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-        MetadataReader mr = null;
-        try {
-            reader = inputFactory.createXMLStreamReader(new FileInputStream(metadataFile));
-            mr = new MetadataReader(reader);
-            mr.parseMetadata();
-        } catch (XMLStreamException | FileNotFoundException e) {
-            logger.error(e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                    if (mr != null) {
-                        metadata = mr.getMetadata();
-                    }
-                } catch (XMLStreamException t) {
-                    logger.error(t);
-                }
-            }
-        }
-    }
+
 
     private void logBasicObject(BasicObject object, String type) {
         totalUnusedObjects++;
-        logger.info("|" + type + "|" + nameSpaceToString(object.getNameSpace()) + "|" + object.getName() + "|" + object.getGuid());
+        logger.info(type + "|" + nameSpaceToString(object.getNameSpace()) + "|" + object.getName() + "|" + object.getGuid());
     }
 
     private String nameSpaceToString(String guid) {

@@ -10,5 +10,7 @@
     <orderEntry type="library" name="MetadataParser" level="project" />
     <orderEntry type="library" name="org.apache.logging.log4j:log4j-core:2.7" level="project" />
     <orderEntry type="library" name="log4j-api-2.8.2" level="project" />
+    <orderEntry type="library" name="jslint4java-2.0.5" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.4" level="project" />
   </component>
 </module>

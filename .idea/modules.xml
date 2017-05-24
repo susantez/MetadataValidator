@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UnusedObjects.iml" filepath="$PROJECT_DIR$/UnusedObjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeQuality.iml" filepath="$PROJECT_DIR$/CodeQuality.iml" />
     </modules>
   </component>
 </project>
